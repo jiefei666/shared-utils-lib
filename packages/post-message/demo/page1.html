@@ -34,7 +34,7 @@
     <iframe id="Page3" src="./page3.html" frameborder="0"></iframe>
 
     <script type="module">
-      import { PostMessage, Emitter } from '../build/index.mjs';
+      import { PostMessage } from '../build/index.mjs';
       const postMessage = new PostMessage(window, {
         name: 'PAGE1',
         filterSources: ['PAGE2'], // 只接受page2发送的消息
@@ -60,6 +60,5 @@
 
       window.onload = onload;
     </script>
-    <!-- <script src="../dist/index.global.js"></script> -->
   </body>
 </html>

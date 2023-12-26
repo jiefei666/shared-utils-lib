@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsup';
 
 export default defineConfig((options) => {
   return {
@@ -7,9 +7,9 @@ export default defineConfig((options) => {
     sourcemap: true,
     clean: true,
     format: ['esm', 'cjs', 'iife'],
-    globalName: 'PostMessage',
+    globalName: 'PM',
     dts: true,
     outDir: 'build',
     minify: !options.watch,
-  }
-})
+  };
+});
