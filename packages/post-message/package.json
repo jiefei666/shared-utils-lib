@@ -1,0 +1,22 @@
+{
+  "name": "@shared/post-message",
+  "version": "1.0.0",
+  "description": "基于iframe通过PostMessage通信二次封装",
+  "main": "build/index.js",
+  "module": "build/index.mjs",
+  "browser": "build/index.global.js",
+  "types": "build/index.d.ts",
+  "scripts": {
+    "dev": "tsup --watch",
+    "build": "tsup"
+  },
+  "keywords": [
+    "iframe",
+    "PostMessage"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@shared/post-message": "workspace:^1.0.0"
+  }
+}

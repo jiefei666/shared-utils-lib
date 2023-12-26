@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    child:page2
+
+    <button id="SendBtn">向page1发送消息</button>
+
+    <script type="module">
+      import { PostMessage, Emitter } from '../build/index.mjs';
+
+      const postMessage = new PostMessage(window, { name: 'PAGE2' });
+
+      // 向 page1 暴露方法供page1调用
+      postMessage.expose(
+        {
+          getData: (param) => {
+            console.log('page2 getData param', param);
+            return {
+              name: 'page2',
+            };
+          },
+        },
+        window.parent,
+      );
+
+      window.onload = () => {
+        document.getElementById('SendBtn').addEventListener('click', () => {
+          // 向 page1 发送消息
+          postMessage.send('onInit', { msg: 'hello' }, window.parent);
+        });
+      };
+    </script>
+  </body>
+</html>

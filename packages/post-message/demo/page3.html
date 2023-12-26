@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    child:page3
+
+    <button id="SendBtn">向page1发送消息</button>
+
+    <script type="module">
+      import { PostMessage, Emitter } from '../build/index.mjs';
+
+      const postMessage = new PostMessage(window, {name: "PAGE3"})
+
+      window.onload = () => {
+        document.getElementById('SendBtn').addEventListener('click', () => {
+          postMessage.send('onInit', { msg: 'hello' }, window.parent)
+        })
+      }
+    </script>
+  </body>
+</html>

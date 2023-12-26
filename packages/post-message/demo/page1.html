@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      body {
+        background-color: #ccc;
+      }
+      iframe {
+        width: 200px;
+        height: 200px;
+      }
+
+      #Page2,
+      #Page3 {
+        background-color: pink;
+      }
+
+      .btn {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div>page1</div>
+    <button id="Page2Btn" class="btn">调用Page2提供的方法</button>
+    <br />
+    <iframe id="Page2" src="./page2.html" frameborder="0"></iframe>
+    <br />
+    <iframe id="Page3" src="./page3.html" frameborder="0"></iframe>
+
+    <script type="module">
+      import { PostMessage, Emitter } from '../build/index.mjs';
+      const postMessage = new PostMessage(window, {
+        name: 'PAGE1',
+        filterSources: ['PAGE2'], // 只接受page2发送的消息
+      });
+      // 监听消息
+      postMessage.listen({
+        onInit: (param) => {
+          console.log('page1 接受到消息', param);
+        },
+      });
+
+      const onload = () => {
+        document.getElementById('Page2Btn').addEventListener('click', () => {
+          const page2Iframe = document.getElementById('Page2');
+          // 调用 page2 暴露的方法
+          postMessage
+            .invoke('getData', { a: 1, b: 2 }, page2Iframe.contentWindow)
+            .then((data) => {
+              console.log(`从page2获取的数据`, data);
+            });
+        });
+      };
+
+      window.onload = onload;
+    </script>
+    <!-- <script src="../dist/index.global.js"></script> -->
+  </body>
+</html>
